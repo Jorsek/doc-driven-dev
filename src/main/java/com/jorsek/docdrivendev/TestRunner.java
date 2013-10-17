@@ -275,20 +275,25 @@ public class TestRunner extends TestCase {
 
             System.out.println("TEXT: " + e.getText());
             System.out.println("Tag: " + e.getTagName());
+
+            Locatable hoverItem = (Locatable) e;
+            Mouse mouse = ((HasInputDevices) driver).getMouse();
+            mouse.mouseMove(hoverItem.getCoordinates());
+
             if(directive instanceof ClickDirective){
 
-                Locatable hoverItem = (Locatable) e;
-                Mouse mouse = ((HasInputDevices) driver).getMouse();
-                mouse.mouseMove(hoverItem.getCoordinates());
+
                 Thread.sleep(500);
                 e.click();
 
             } else if (directive instanceof SendTextDirective){
                 e.sendKeys(((SendTextDirective) directive).getPayload());
             }
+
         }else if(direc instanceof VerifyMessageDirective){
             WebElement e = null;
             try {
+
                 String message = ((VerifyMessageDirective) direc).getMessageToFind();
                 e = (new WebDriverWait(driver, 5)).until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(., '" + message + "')]")));
 

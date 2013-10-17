@@ -29,12 +29,9 @@ public class DirectiveParser {
     static {
 
         actionFinders.put("not(empty(preceding-sibling::node()[matches(., '(Click|Select)')]))", Action.CLICK);
-
         actionFinders.put("@testval", Action.SEND_TEXT);
 
     }
-
-
 
     private static String genSeekUIByRegex(String regex){
         return "";
